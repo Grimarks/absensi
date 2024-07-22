@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Absensi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="badan">
+    <h1>Absensi</h1>
+    <div id="lokasi">
+        <label for="lokasiorang">Lokasi</label>
+        <p id="lokasiorang">test</p>
+    </div>
+    <div id="nama">
+        <label for="inputNama">Nama</label>
+        <input type="text" id="inputNama" name="nama">
+    </div>
+    <div id="NPP">
+        <label for="inputNPP">NPP</label>
+        <input type="text" id="inputNPP" name="NPP">
+    </div>
+    <div id="foto">
+        <label for="inputFoto">Foto</label>
+        <video id="video" width="200" height="150" autoplay></video>
+        <canvas id="canvas" width="200" height="150"></canvas>
+    </div>
+    <button id="capture" type="button">Capture</button>
+    <button id="submit" type="submit">Submit</button>
+    <input type="hidden" id="inputFoto" name="foto">
+    <script>
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            alert("Sorry, can't get your location");
+        }
+
+        function showPosition(position) {
+            document.getElementById("lokasiorang").textContent = position.coords.latitude + ", " + position.coords.longitude;
+        }
+
+        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+            .then(stream => {
+                document.getElementById("video").srcObject = stream;
+            })
+            .catch(error => {
+                alert("Error accessing camera: " + error);
+            });
+
+        document.getElementById("capture").addEventListener("click", function() {
+            var canvas = document.getElementById("canvas");
+            var video = document.getElementById("video");
+            var context = canvas.getContext("2d");
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            var imageDataURL = canvas.toDataURL("image/png");
+            document.getElementById("inputFoto").value = imageDataURL;
+        });
+
+        document.getElementById("submit").addEventListener("click", function() {
+            var nama = document.getElementById("inputNama").value;
+            var NPP = document.getElementById("inputNPP").value;
+            var lokasi = document.getElementById("lokasiorang").textContent;
+            var foto = document.getElementById("inputFoto").value;
+
+            var data = "Nama: " + nama + "\nNPP: " + NPP + "\nLokasi: " + lokasi + "\nFoto: " + foto + "\n\n";
+
+            var blob = new Blob([data], { type: "text/plain;charset=utf-8" });
+            var link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "data.txt";
+            link.click();
+            URL.revokeObjectURL(link.href);
+        });
+    </script>
+</div>
+</body>
+</html>
