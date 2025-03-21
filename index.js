@@ -11,13 +11,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const success = (pos) => {
             const { latitude, longitude } = pos.coords;
-            
+
             // Menampilkan lokasi dengan tautan ke Google Maps
             lokasiElement.innerHTML = `
-                <strong>Lokasi Terdeteksi:</strong> <br>
-                Latitude: ${latitude}, Longitude: ${longitude} <br>
-                <a href="https://www.google.com/maps?q=${latitude},${longitude}" target="_blank">Lihat di Google Maps</a>
-            `;
+        <strong>Lokasi Terdeteksi:</strong> <br>
+        Latitude: ${latitude}, Longitude: ${longitude} <br>
+        <a href="https://www.google.com/maps?q=${latitude},${longitude}" target="_blank">Lihat di Google Maps</a>
+    `;
+
+            // Menyimpan lokasi ke input hidden agar dapat dikirim ke Google Sheets
+            document.getElementById("lokasiHidden").value = `${latitude},${longitude}`;
         };
 
         const error = (err) => {
