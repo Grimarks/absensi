@@ -1,96 +1,52 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Absensi NFC</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Absensi</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="container">
     <h1>Absensi Online</h1>
-    <form action="https://script.google.com/macros/s/AKfycbzkyPq3_YSCAiaJXqyOyuZ1WLJApxtd4xsdEO9md10UBWsB8EEUpCZwVi-KqBQsLs4e4w/exec"
-          method="post"
-          enctype="multipart/form-data"
-          id="absensiForm">
-
-        <!-- NFC Scan -->
+    <form action="https://script.google.com/macros/s/AKfycbxxm41e2X6VDyLrU25cRWcNzAZvuAKecPtzPDiz3N0yBxqpqeWOr5q3utt2iAQxpPLh/exec"
+          method="post" enctype="multipart/form-data" id="absensiForm">
         <div class="form-group">
-            <label for="nfcData">Scan Kartu NFC</label>
-            <p id="nfcData" class="input-static">Menunggu scan...</p>
-            <button type="button" id="startNfc" class="btn">Mulai Scan NFC</button>
+            <label for="lokasiInput">Lokasi Anda</label>
+            <p id="lokasiInput" class="input-static">Mendeteksi lokasi...</p>
+            <!-- Input hidden untuk menyimpan lokasi -->
+            <input type="hidden" id="lokasiHidden" name="lokasiInput">
         </div>
-
-        <!-- Data Form -->
-        <div id="formSection" style="display: none;">
-            <div class="form-group">
-                <label for="lokasiInput">Lokasi Anda</label>
-                <p id="lokasiInput" class="input-static">Mendeteksi lokasi...</p>
-                <input type="hidden" id="lokasiHidden" name="lokasiInput">
-            </div>
-
-            <div class="form-group">
-                <label for="inputNama">Nama Lengkap</label>
-                <p id="inputNamaText" class="input-static">Menunggu scan...</p>
-                <input type="hidden" id="inputNama" name="inputNama">
-            </div>
-
-            <div class="form-group">
-                <label for="inputNIM">NIM</label>
-                <p id="inputNIMText" class="input-static">Menunggu scan...</p>
-                <input type="hidden" id="inputNIM" name="inputNIM">
-            </div>
-
-            <div class="form-group">
-                <label for="inputJurusan">Jurusan</label>
-                <p id="inputJurusanText" class="input-static">Menunggu scan...</p>
-                <input type="hidden" id="inputJurusan" name="inputJurusan">
-            </div>
-
-            <!-- Input Hidden untuk Tanggal dan Waktu -->
-            <input type="hidden" id="tanggalHidden" name="tanggal">
-            <input type="hidden" id="waktuHidden" name="waktu">
-
-            <!-- Pilihan Mata Kuliah -->
-            <div class="form-group">
-                <label for="inputMataKuliah">Mata Kuliah</label>
-                <select id="inputMataKuliah" name="inputMataKuliah" required>
-                    <option value="Algoritma">Algoritma</option>
-                    <option value="Pemrograman Web">Pemrograman Web</option>
-                    <option value="Statistika">Statistika</option>
-                </select>
-            </div>
-
-            <!-- Input untuk Semester -->
-            <div class="form-group">
-                <label for="inputSemester">Semester</label>
-                <input type="text" id="inputSemester" name="inputSemester" placeholder="Masukkan Semester Anda" required>
-            </div>
-
-            <!-- Kamera -->
-            <div class="form-group">
-                <label for="inputFoto">Ambil Foto</label>
-                <div class="camera">
-                    <video id="video" autoplay></video>
-                    <canvas id="canvas"></canvas>
-                </div>
-                <button type="button" id="capture" class="btn" disabled>Capture Foto</button>
-                <input type="hidden" id="inputFoto" name="foto">
-            </div>
-
-            <button type="submit" class="btn submit-btn">Kirim Data</button>
+        <div class="form-group">
+            <label for="inputNama">Nama Lengkap</label>
+            <input type="text" id="inputNama" name="inputNama" placeholder="Masukkan nama Anda" required>
         </div>
+        <div class="form-group">
+            <label for="inputNPP">NPP</label>
+            <input type="text" id="inputNPP" name="inputNPP" placeholder="Masukkan NPP Anda" required>
+        </div>
+        <div class="form-group">
+            <label for="inputFoto">Ambil Foto</label>
+            <div class="camera">
+                <video id="video" autoplay></video>
+                <canvas id="canvas"></canvas>
+            </div>
+            <button type="button" id="capture" class="btn">Capture Foto</button>
+            <input type="hidden" id="inputFoto" name="foto">
+        </div>
+        <button type="submit" id="submit" class="btn submit-btn">Kirim Data</button>
     </form>
 </div>
 
 <div class="link-container">
     <p>
         Lihat data absensi di
-        <a href="https://docs.google.com/spreadsheets/d/1u6WKpojL0UxctOUrzO0K3Qonerao4bRiDcok0gpfOKA/edit?usp=sharing"
+        <a href="https://docs.google.com/spreadsheets/d/1cL1VhyTap6kFuTdmJ_isPgKo4V3yHfHZn5WfVjjTsNg/edit?usp=sharing"
            target="_blank">Google Sheets</a>
     </p>
 </div>
 
-<script src="./script/script.js"></script>
+<script src="index.js"></script>
 </body>
 </html>
